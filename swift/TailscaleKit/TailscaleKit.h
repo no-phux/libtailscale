@@ -75,6 +75,14 @@ extern int tailscale_set_authkey(tailscale sd, const char* authkey);
 extern int tailscale_set_control_url(tailscale sd, const char* control_url);
 extern int tailscale_set_ephemeral(tailscale sd, int ephemeral);
 
+// tailscale_disable_log_upload stops every tailscale instance in this
+// process from uploading logs to Tailscale (no-logs-no-support mode, as
+// TS_NO_LOGS_NO_SUPPORT=1 does for tailscaled). Call it before the first
+// tailscale_start: the environment a library is loaded with is fixed.
+//
+// Returns zero.
+extern int tailscale_disable_log_upload();
+
 // tailscale_set_logfd instructs the tailscale instance to write logs to fd.
 //
 // An fd value of -1 means discard all logging.

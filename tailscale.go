@@ -24,6 +24,7 @@ import (
 	"unsafe"
 
 	"golang.org/x/sys/unix"
+	"tailscale.com/envknob"
 	"tailscale.com/hostinfo"
 	"tailscale.com/ipn"
 	"tailscale.com/tsnet"
@@ -573,6 +574,12 @@ func TsnetSetEphemeral(sd C.int, e int) C.int {
 	} else {
 		s.s.Ephemeral = true
 	}
+	return 0
+}
+
+//export TsnetDisableLogUpload
+func TsnetDisableLogUpload() C.int {
+	envknob.SetNoLogsNoSupport()
 	return 0
 }
 
